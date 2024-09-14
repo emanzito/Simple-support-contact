@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  //I don't know why I added this and why it works
   var name = document.getElementById("full-name");
   var phone = document.getElementById("phone");
   var email = document.getElementById("email");
@@ -16,6 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Email:", email.value);
     console.log("Empresa:", company.value);
     console.log("Mensagem:", message.value);
+
+    //Warns user if there's no message on the 'question/comment' box
+    if (message.value.trim() === "") {
+      window.alert("Please fill in all mandatory fields");
+      return false;
+    } else {
+      return true;
+    }
   });
 });
 
