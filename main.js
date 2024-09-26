@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  //I don't know why I added this and why it works
+  //I don't know why I added this Event Listener and why it works
   var name = document.getElementById("full-name");
   var phone = document.getElementById("phone");
   var email = document.getElementById("email");
