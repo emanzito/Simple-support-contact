@@ -11,21 +11,95 @@ document.addEventListener("DOMContentLoaded", function () {
   btn.addEventListener("click", function (event) {
     event.preventDefault();
 
-    // Log of the values on console
-    console.log("Nome completo:", name.value);
-    console.log("Telefone:", phone.value);
-    console.log("Email:", email.value);
-    console.log("Empresa:", company.value);
-    console.log("Mensagem:", message.value);
-
-    //Warns user if there's no message on the 'question/comment' box
-    if (message.value.trim() === "") {
-      window.alert("Please fill in all mandatory fields");
+    // Validate all fields
+    if (name.value.trim() === "" || phone.value.trim() === "" || email.value.trim() === "" || message.value.trim() === "") {
+      window.alert("Por favor, preencha todos os campos obrigatórios");
       return false;
-    } else {
-      return true;
     }
+
+    // Create an object with form data
+    const formData = {
+      name: name.value,
+      phone: phone.value,
+      email: email.value,
+      company: company.value,
+      message: message.value,
+      timestamp: new Date().toISOString(),
+    };
+
+    // Save data to localStorage
+    saveToLocalStorage(formData);
+
+    // Clear form fields
+    [name, phone, email, company, message].forEach((field) => (field.value = ""));
+
+    window.alert("Message sent successfully!");
+    return true;
+  });
+
+  // Add a new button to display data
+  var displayDataBtn = document.getElementById("displayDataBtn");
+  var dataDisplay = document.getElementById("dataDisplay");
+
+  displayDataBtn.addEventListener("click", function () {
+    displayDataFromLocalStorage();
+  });
+
+  // Add a new button to clear data
+  var clearDataBtn = document.getElementById("clearDataBtn");
+
+  clearDataBtn.addEventListener("click", function () {
+    clearDataFromLocalStorage();
   });
 });
 
-//Choose a Data Base of your choice, this is only a simple test
+function saveToLocalStorage(data) {
+  // Get existing data from localStorage
+  let existingData = JSON.parse(localStorage.getItem("contactFormData")) || [];
+
+  // Add new data
+  existingData.push(data);
+
+  // Save updated data back to localStorage
+  localStorage.setItem("contactFormData", JSON.stringify(existingData));
+}
+
+// Function to retrieve data (you can call this when needed)
+function getDataFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("contactFormData")) || [];
+}
+
+function displayDataFromLocalStorage() {
+  const data = getDataFromLocalStorage();
+  let displayHtml = "<h2>Dados Armazenados:</h2>";
+
+  if (data.length === 0) {
+    displayHtml += "<p>Nenhum dado armazenado.</p>";
+  } else {
+    displayHtml += "<ul>";
+    data.forEach((item, index) => {
+      displayHtml += `
+        <li>
+          <strong>Entry ${index + 1}:</strong><br>
+          Name: ${item.name}<br>
+          Cellphone: ${item.phone}<br>
+          Email: ${item.email}<br>
+          Company: ${item.company}<br>
+          Message: ${item.message}<br>
+          Data: ${new Date(item.timestamp).toLocaleString()}
+        </li>`;
+    });
+    displayHtml += "</ul>";
+  }
+
+  dataDisplay.innerHTML = displayHtml;
+}
+
+function clearDataFromLocalStorage() {
+  if (confirm("Are you sure you want to delete all stored data?")) {
+    localStorage.removeItem("contactFormData");
+    alert("Everything was deleted.");
+    // If you're displaying the data, update the display
+    displayDataFromLocalStorage();
+  }
+}

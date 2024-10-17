@@ -34,6 +34,7 @@ textarea {
   background-color: #007bff;
   color: white;
   border: none;
+  margin: 5px;
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
