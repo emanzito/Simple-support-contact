@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validate all fields
     if (name.value.trim() === "" || phone.value.trim() === "" || email.value.trim() === "" || message.value.trim() === "") {
-      window.alert("Por favor, preencha todos os campos obrigatórios");
+      window.alert("Please, fill in all required fields.");
       return false;
     }
 
@@ -71,10 +71,10 @@ function getDataFromLocalStorage() {
 
 function displayDataFromLocalStorage() {
   const data = getDataFromLocalStorage();
-  let displayHtml = "<h2>Dados Armazenados:</h2>";
+  let displayHtml = "<h2>Saved Data:</h2>";
 
   if (data.length === 0) {
-    displayHtml += "<p>Nenhum dado armazenado.</p>";
+    displayHtml += "<p>No data saved.</p>";
   } else {
     displayHtml += "<ul>";
     data.forEach((item, index) => {
