@@ -82,11 +82,11 @@ function displayDataFromLocalStorage() {
         <li>
           <strong>Entry ${index + 1}:</strong><br>
           Name: ${item.name}<br>
-          Cellphone: ${item.phone}<br>
+          Phone: ${item.phone}<br>
           Email: ${item.email}<br>
           Company: ${item.company}<br>
           Message: ${item.message}<br>
-          Data: ${new Date(item.timestamp).toLocaleString()}
+          Date: ${new Date(item.timestamp).toLocaleString()}
         </li>`;
     });
     displayHtml += "</ul>";
@@ -98,7 +98,7 @@ function displayDataFromLocalStorage() {
 function clearDataFromLocalStorage() {
   if (confirm("Are you sure you want to delete all stored data?")) {
     localStorage.removeItem("contactFormData");
-    alert("Everything was deleted.");
+    alert("All data has been deleted.");
     // If you're displaying the data, update the display
     displayDataFromLocalStorage();
   }
